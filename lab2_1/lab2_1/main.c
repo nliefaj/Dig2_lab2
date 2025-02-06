@@ -20,25 +20,10 @@ uint8_t switch_pot=0;
 uint8_t change_value_pot1=0;
 uint8_t change_value_pot2=0;
 
-ISR(ADC_vect){
-	if (switch_pot==0){
-		ADMUX=0;
-		ADMUX|=((1<<MUX1)|(1<<MUX2));
-		valor_pot1=ADCH;
-		switch_pot=1;
-		change_value_pot1=1;
-		}else{
-		ADMUX=0;
-		ADMUX|=((1<<MUX0)|(1<<MUX1)|(1<<MUX2));
-		valor_pot2=ADCH;
-		switch_pot=0;
-		change_value_pot2=1;
-	}
-	ADCSRA|=(1<<ADIF);
-}
 
 int main(void)
 {	
+	cli();
 	initLCD8b();
 	initadc();
 	ADCSRA|=(1<<ADSC);
@@ -95,5 +80,21 @@ int main(void)
 			}
 		}
     }
+}
+ISR(ADC_vect){
+	if (switch_pot==0){
+		ADMUX=0;
+		ADMUX|=((1<<MUX1)|(1<<MUX2));
+		valor_pot1=ADCH;
+		switch_pot=1;
+		change_value_pot1=1;
+		}else{
+		ADMUX=0;
+		ADMUX|=((1<<MUX0)|(1<<MUX1)|(1<<MUX2));
+		valor_pot2=ADCH;
+		switch_pot=0;
+		change_value_pot2=1;
+	}
+	ADCSRA|=(1<<ADIF);
 }
 
