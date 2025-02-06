@@ -95,3 +95,24 @@ void LCD_write_char(char d){
 	PORTD&=~(1<<PORTD3);
 	
 }
+
+void LCD_write_String(char *a){
+	int i;
+	for (i=0;a[i]!='\0';i++)
+	LCD_write_char(a[i]);
+}
+
+
+
+	
+	
+void LCD_Set_Cursor(char c, char f){
+	char temp;
+	if (f==1){
+		temp=0x80+c;
+		comandos_LCD(temp);
+	}else if(f==2){
+		temp=0xC0+c;
+		comandos_LCD(temp);
+	}
+}

@@ -22,6 +22,12 @@ void port_disp(char a);
 void comandos_LCD(char a);
 //funcion para enviar u caracter
 void LCD_write_char(char d); 
+//funcion para iniciar el cursor;
+void LCD_Set_Cursor(char c,char f);
+//funcion escirbir cadena de caracteres
+void LCD_write_String(char *a);
+//setear pantalla
+void set_lcd_value(char vp1,char vp2);
 
 
 
