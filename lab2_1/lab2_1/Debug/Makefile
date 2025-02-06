@@ -34,12 +34,14 @@ LINKER_SCRIPT_DEP:=
 # Every subdirectory with source files must be described here
 SUBDIRS :=  \
 ../lcd \
-../adc
+../adc \
+../com_uart
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../adc/adc.c \
+../com_uart/com_uart.c \
 ../lcd/lcd.c \
 ../main.c
 
@@ -52,21 +54,25 @@ ASM_SRCS +=
 
 OBJS +=  \
 adc/adc.o \
+com_uart/com_uart.o \
 lcd/lcd.o \
 main.o
 
 OBJS_AS_ARGS +=  \
 adc/adc.o \
+com_uart/com_uart.o \
 lcd/lcd.o \
 main.o
 
 C_DEPS +=  \
 adc/adc.d \
+com_uart/com_uart.d \
 lcd/lcd.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
 adc/adc.d \
+com_uart/com_uart.d \
 lcd/lcd.d \
 main.d
 
@@ -85,6 +91,13 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 adc/adc.o: ../adc/adc.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\microchip_atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\microchip_atmel\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "D:\microchip_atmel\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+com_uart/com_uart.o: ../com_uart/com_uart.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)D:\microchip_atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"D:\microchip_atmel\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "D:\microchip_atmel\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
